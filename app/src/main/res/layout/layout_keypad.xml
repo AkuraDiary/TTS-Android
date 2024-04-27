@@ -133,7 +133,7 @@
         android:layout_toEndOf="@id/btn_keypad"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
-        android:text="@string/x"
+        android:text="x"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/sizeTvNormal1"/>
 

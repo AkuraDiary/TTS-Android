@@ -8,6 +8,16 @@ data class TtsSoal(
     var orietation: TtsOrientation
 )
 
+data class TTS(
+
+    var tts: String? = null,
+    var kode: String? = null,
+    var clue: String? = null,
+    var id: Int = 0,
+    var up: String? = null,
+    var orientation: TtsOrientation? = null
+)
+
 enum class TtsOrientation {
     HORIZONTAL,
     VERTICAL

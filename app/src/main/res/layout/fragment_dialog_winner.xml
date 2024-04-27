@@ -64,7 +64,7 @@
         </RelativeLayout>
 
         <Button
-                android:id="@+id/btn_ok"
+                android:id="@+id/btn_next"
                 android:layout_width="@dimen/sizeWidthBtnLarge"
                 android:layout_height="@dimen/sizeHeigthBtn"
                 android:text="lanjut"
@@ -78,7 +78,7 @@
                 android:textSize="@dimen/sizeTvNormal1"/>
 
         <Button
-                android:id="@+id/btn_batal"
+                android:id="@+id/btn_share"
                 android:layout_width="@dimen/sizeWidthBtnLarge"
                 android:layout_height="@dimen/sizeHeigthBtn"
                 android:text="share"
