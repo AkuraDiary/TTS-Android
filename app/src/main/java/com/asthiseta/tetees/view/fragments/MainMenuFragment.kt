@@ -10,6 +10,9 @@ import com.asthiseta.tetees.databinding.FragmentMainMenuBinding
 import com.asthiseta.tetees.utils.MediaManager
 
 class MainMenuFragment : Fragment(){
+    companion object {
+        var TAG = "MainMenuFragment"
+    }
 
     private var binding : FragmentMainMenuBinding? = null
     override fun onCreateView(
@@ -32,12 +35,12 @@ class MainMenuFragment : Fragment(){
                     val fragment = ListLevelDebugFragment()
                     val transaction  = requireActivity().supportFragmentManager.beginTransaction()
                     transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
-                    transaction.replace(R.id.fragment_container, fragment).addToBackStack("MainMenuFragment").commit()
+                    transaction.replace(R.id.fragment_container, fragment).addToBackStack(TAG).commit()
 //                } else {
-//                    val fragment = MainGameFragmet()
+//                    val fragment = MainGameFragment()
 //                    val transaction  = activity!!.supportFragmentManager.beginTransaction()
 //                    transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
-//                    transaction.replace(R.id.fragment_container, fragment, MainGameFragmet.TAG).addToBackStack(TAG).commit()
+//                    transaction.replace(R.id.fragment_container, fragment, MainGameFragment.TAG).addToBackStack(TAG).commit()
 //                }
             }
             btnMore.setOnClickListener {

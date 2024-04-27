@@ -68,8 +68,8 @@ class TtsAdapter : RecyclerView.Adapter<TtsAdapter.ViewHolder>() {
         val itemView = LayoutInflater.from(viewGroup!!.context).inflate(R.layout.layout_item_grid, viewGroup, false)
 
         itemView.post {
-            val height = (DataGame.get().data.heightRecy!! - (viewGroup.paddingTop + viewGroup.paddingBottom)) / kotak.toFloat()
-            val width = (DataGame.get().data.screenWidth!! / kotak)
+            val height = 100.0//(DataGame.get().data.heightRecy!! - (viewGroup.paddingTop + viewGroup.paddingBottom)) / kotak.toFloat()
+            val width =100//(DataGame.get().data.screenWidth!! / kotak)
 
             Log.i("tinggi", " ${DataGame.get().data.heightRecy}, $height")
 
@@ -77,7 +77,7 @@ class TtsAdapter : RecyclerView.Adapter<TtsAdapter.ViewHolder>() {
             val marginParams = itemView.layoutParams as ViewGroup.MarginLayoutParams
 
             params.width = width - (marginParams.leftMargin + marginParams.rightMargin)
-            params.height = Math.round(height) - (marginParams.topMargin + marginParams.bottomMargin)
+            params.height = (Math.round(height) - (marginParams.topMargin + marginParams.bottomMargin)).toInt()
             itemView.layoutParams = params
         }
 

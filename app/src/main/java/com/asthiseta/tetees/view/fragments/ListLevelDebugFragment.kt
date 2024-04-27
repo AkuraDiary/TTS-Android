@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.asthiseta.tetees.R
 import com.asthiseta.tetees.databinding.FragmentListLevelDebugBinding
-import com.asthiseta.tetees.databinding.FragmentMainMenuBinding
 import com.asthiseta.tetees.utils.ManagerLevel
 
 
@@ -46,7 +45,7 @@ class ListLevelDebugFragment : Fragment() {
 
     private val listener = object : ListAdapter.LevelListener {
         override fun onClick(position: Int) {
-            val fragment = MainGameFragmet()
+            val fragment = MainGameFragment()
             val bundle = Bundle()
             bundle.putInt("level", position)
             fragment.arguments = bundle

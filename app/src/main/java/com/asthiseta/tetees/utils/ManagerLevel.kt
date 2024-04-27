@@ -56,9 +56,13 @@ class ManagerLevel {
         params["user_project"] = "jumadi-12345"
         params["start_index"] = "${(ls.size)}"
 
-        val request = HttpHandler(HttpHandler.REQUEST_METHOD_GET, URL_SOAL, params, object : HttpHandler.ResponseListener {
-            override fun onSuccessResponse(string: String?) {
-                if (string == null) return
+        val request = HttpHandler(
+            HttpHandler.REQUEST_METHOD_GET,
+            URL_SOAL,
+            params,
+            object : HttpHandler.ResponseListener {
+                override fun onSuccessResponse(string: String?) {
+                    if (string == null) return
 
 //                Log.d(TAG, string)
 //                if (string.contains("[")) {
@@ -73,13 +77,13 @@ class ManagerLevel {
 //                    Log.d(TAG, "Type not JSON")
 //                }
 
-            }
+                }
 
-            override fun onErrorResponse(string: String?) {
-                Log.d(TAG, "error : $string")
-            }
+                override fun onErrorResponse(string: String?) {
+                    Log.d(TAG, "error : $string")
+                }
 
-        })
+            })
         request.start()
     }
 
@@ -97,8 +101,19 @@ class ManagerLevel {
                 val clue = soal[1] as String
                 val row = soal[2] as Int
                 val col = soal[3] as Int
-                val orentation = soal[4]  as TtsOrientation
-//                var orentation: Boolean
+//                val orentation = soal[4]  as TtsOrientation
+                var orentation: TtsOrientation
+                try {
+                    orentation = soal[4] as TtsOrientation
+                } catch (e: Exception) {
+                    val o = soal[4] as String
+                    orentation =
+                        if (o.equals(
+                                "mendatar",
+                                ignoreCase = true
+                            )
+                        ) TtsOrientation.HORIZONTAL else TtsOrientation.VERTICAL
+                }
 //                orentation = try {
 //                    soal[4] as Boolean
 //                } catch (e: Exception) {
@@ -119,7 +134,7 @@ class ManagerLevel {
         gLevel = mLevel
         gKotak = level.kotak
         tts = TSilang(level.kotak, level.kotak)
-        for (soal in  soals) {
+        for (soal in soals) {
             tts!!.add(soal.tts, soal.clue, soal.row, soal.colm, soal.orietation)
         }
     }

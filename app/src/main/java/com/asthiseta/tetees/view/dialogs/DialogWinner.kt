@@ -64,13 +64,13 @@ class DialogWinner : DialogFragment() {
             btnNext.setOnClickListener {
                 MediaManager.sound!!.playClick()
 
-//                val fragment = MainGameFragmet()
+//                val fragment = MainGameFragment()
 //                val bundle = Bundle()
 //                bundle.putInt(Utils.LEVEL, DataGame.get().data.level!!)
 //                fragment.arguments = bundle
 //                val transaction  : FragmentTransaction = activity!!.supportFragmentManager.beginTransaction()
 //                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
-//                transaction.replace(R.id.fragment_container, fragment, MainGameFragmet.TAG).addToBackStack(MainMenuFragment.TAG).commit()
+//                transaction.replace(R.id.fragment_container, fragment, MainGameFragment.TAG).addToBackStack(MainMenuFragment.TAG).commit()
 
                 dismiss()
             }
