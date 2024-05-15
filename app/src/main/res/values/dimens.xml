@@ -5,7 +5,7 @@
     <dimen name="sizeWidthBtn">150dp</dimen>
 
     <dimen name="sizeHeigthBtn">36dp</dimen>
-    <dimen name="sizeBtnKeypad">33dp</dimen>
+    <dimen name="sizeBtnKeypad">40dp</dimen>
 
     <dimen name="sizeTvXLarge">33sp</dimen>
     <dimen name="sizeTvLarge">26sp</dimen>
