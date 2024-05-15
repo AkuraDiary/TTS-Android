@@ -3,9 +3,6 @@ package com.asthiseta.tetees.utils
 import android.util.Log
 import com.asthiseta.tetees.data.DataGame
 import com.asthiseta.tetees.data.dummies.soal.Soal
-import com.asthiseta.tetees.data.dummies.soal.Soal1
-import com.asthiseta.tetees.data.dummies.soal.Soal2
-import com.asthiseta.tetees.data.dummies.soal.Soal3
 import com.asthiseta.tetees.data.model.TSilang
 import com.asthiseta.tetees.data.model.TtsLevel
 import com.asthiseta.tetees.data.model.TtsOrientation
@@ -40,13 +37,13 @@ class ManagerLevel {
 
     init {
         addArrayLevels(Soal.soal10x10, TSilang.KOTAK_10X10)
-        addArrayLevels(Soal.soal12x12, 12)
-        addArrayLevels(Soal1.soal10x10, TSilang.KOTAK_10X10)
-        addArrayLevels(Soal2.soal10x10, TSilang.KOTAK_10X10)
-        addArrayLevels(Soal3.soal10x10, TSilang.KOTAK_10X10)
+//        addArrayLevels(Soal.soal12x12, 12)
+//        addArrayLevels(Soal1.soal10x10, TSilang.KOTAK_10X10)
+//        addArrayLevels(Soal2.soal10x10, TSilang.KOTAK_10X10)
+//        addArrayLevels(Soal3.soal10x10, TSilang.KOTAK_10X10)
 
-        addLevels(DataGame.get().loadLevelUnduhan())
-        downloadSoalOnline()
+//        addLevels(DataGame.get().loadLevelUnduhan())
+//        downloadSoalOnline()
     }
 
     private fun downloadSoalOnline() {
