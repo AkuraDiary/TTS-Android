@@ -78,7 +78,7 @@
             </RelativeLayout>
 
         <include android:id="@+id/lin_keypad"
-                 android:layout_height="75dp"
+                 android:layout_height="wrap_content"
                  android:layout_width="match_parent"
                 layout="@layout/layout_keypad"/>
 

@@ -43,9 +43,9 @@ class MainMenuFragment : Fragment(){
 //                    transaction.replace(R.id.fragment_container, fragment, MainGameFragment.TAG).addToBackStack(TAG).commit()
 //                }
             }
-            btnMore.setOnClickListener {
-                // Do something
-            }
+//            btnMore.setOnClickListener {
+//                // Do something
+//            }
 //            btnMoreApps.setOnClickListener {
 //                // Do something
 //            }

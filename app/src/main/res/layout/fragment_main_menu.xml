@@ -12,7 +12,7 @@
             android:orientation="vertical"
             android:layout_centerVertical="true">
 
-        <ImageButton
+        <android.widget.Button
                 android:id="@+id/btn_mulai"
                 android:layout_width="@dimen/sizeWidthBtnLarge"
                 android:layout_height="@dimen/sizeHeightBtnLarge"
@@ -24,15 +24,5 @@
 
     </LinearLayout>
 
-    <TextView
-            android:id="@+id/copyright"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="3dp"
-            android:textSize="@dimen/sizeTvMini"
-            android:textColor="#d2d2d2"
-            android:text="@string/jumbox_studios"/>
 
 </RelativeLayout>
