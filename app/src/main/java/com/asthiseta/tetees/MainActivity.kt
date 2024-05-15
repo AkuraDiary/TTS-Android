@@ -13,6 +13,11 @@ import com.asthiseta.tetees.view.fragments.MainMenuFragment
 
 class MainActivity : AppCompatActivity() {
 
+    // TODO
+//    Tombol Clear ga jalan
+//    Fix Crash ketika pindah level
+//    Cleanup
+
     private var binding: ActivityMainBinding? = null
 
     //    private val handler by lazy { Handler() }
