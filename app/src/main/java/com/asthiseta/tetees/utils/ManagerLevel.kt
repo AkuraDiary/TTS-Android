@@ -46,43 +46,43 @@ class ManagerLevel {
 //        downloadSoalOnline()
     }
 
-    private fun downloadSoalOnline() {
-        val ls = DataGame.get().loadLevelUnduhan()
-        val params = HashMap<String, String>()
-
-        params["user_project"] = "jumadi-12345"
-        params["start_index"] = "${(ls.size)}"
-
-        val request = HttpHandler(
-            HttpHandler.REQUEST_METHOD_GET,
-            URL_SOAL,
-            params,
-            object : HttpHandler.ResponseListener {
-                override fun onSuccessResponse(string: String?) {
-                    if (string == null) return
-
-//                Log.d(TAG, string)
-//                if (string.contains("[")) {
-//                    val data = "bebek"// TtsResponseMsg = //JsonToObject(string,  TtsResponseMsg::class.java)
-//                    if (data.message == 1) {
-//                        if (data.data !=null) {
-//                            DataGame.d!!.saveLevelUnduhan(data.data!!)
-//                            addLevels(data.data!!)
-//                        }
-//                    }
-//                } else {
-//                    Log.d(TAG, "Type not JSON")
+//    private fun downloadSoalOnline() {
+//        val ls = DataGame.get().loadLevelUnduhan()
+//        val params = HashMap<String, String>()
+//
+////        params["user_project"] = "jumadi-12345"
+////        params["start_index"] = "${(ls.size)}"
+//
+//        val request = HttpHandler(
+//            HttpHandler.REQUEST_METHOD_GET,
+//            URL_SOAL,
+//            params,
+//            object : HttpHandler.ResponseListener {
+//                override fun onSuccessResponse(string: String?) {
+//                    if (string == null) return
+//
+////                Log.d(TAG, string)
+////                if (string.contains("[")) {
+////                    val data = "bebek"// TtsResponseMsg = //JsonToObject(string,  TtsResponseMsg::class.java)
+////                    if (data.message == 1) {
+////                        if (data.data !=null) {
+////                            DataGame.d!!.saveLevelUnduhan(data.data!!)
+////                            addLevels(data.data!!)
+////                        }
+////                    }
+////                } else {
+////                    Log.d(TAG, "Type not JSON")
+////                }
+//
 //                }
-
-                }
-
-                override fun onErrorResponse(string: String?) {
-                    Log.d(TAG, "error : $string")
-                }
-
-            })
-        request.start()
-    }
+//
+//                override fun onErrorResponse(string: String?) {
+//                    Log.d(TAG, "error : $string")
+//                }
+//
+//            })
+//        request.start()
+//    }
 
     fun addLevels(levels: ArrayList<TtsLevel>) {
         this.levels.addAll(levels)

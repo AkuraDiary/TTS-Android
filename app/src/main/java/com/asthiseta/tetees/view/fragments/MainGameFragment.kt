@@ -157,8 +157,6 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
         btnKeypad.add(binding?.linKeypad?.btn9)
         btnKeypad.add(binding?.linKeypad?.btn10)
 
-
-
         manager = ManagerLevel.managerLevel
         adapter.setListener(this)
 
@@ -180,24 +178,24 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
             }
         }
 
-//        binding?.btnHapus.setOnClickListener { view ->
-//            MediaManager.sound!!.playClick()
-//            var id = -1
-//            if(view.tag != null) id = view.tag as Int
-//            updateKotak(id, "")
-//        }
-
-        binding?.linKeypad?.btnBantuan?.setOnClickListener {
-//            MediaManager.sound!!.playClick()
-//            val dialogBantuan =  JDialog()
-//            val bundle = Bundle()
-//            bundle.putInt(JDialog.DIALOG, JDialog.DIALOG_GUNA_BANTUAN)
-//            dialogBantuan.arguments = bundle
-//            dialogBantuan.setListener(this)
-//            val transaction = activity!!.supportFragmentManager.beginTransaction()
-//            transaction.add(dialogBantuan, null).show(dialogBantuan).commit()
-//            dialogBantuan.isCancelable = false
+        binding?.linKeypad?.btnHapus?.setOnClickListener { view ->
+            MediaManager.sound!!.playClick()
+            var id = -1
+            if(view.tag != null) id = view.tag as Int
+            updateKotak(id, "")
         }
+//
+//        binding?.linKeypad?.btnBantuan?.setOnClickListener {
+////            MediaManager.sound!!.playClick()
+////            val dialogBantuan =  JDialog()
+////            val bundle = Bundle()
+////            bundle.putInt(JDialog.DIALOG, JDialog.DIALOG_GUNA_BANTUAN)
+////            dialogBantuan.arguments = bundle
+////            dialogBantuan.setListener(this)
+////            val transaction = activity!!.supportFragmentManager.beginTransaction()
+////            transaction.add(dialogBantuan, null).show(dialogBantuan).commit()
+////            dialogBantuan.isCancelable = false
+//        }
 
         binding?.linKeypad?.btnCek?.setOnClickListener {
             MediaManager.sound!!.playClick()
@@ -443,7 +441,7 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
             arr[nextInt] = str2
         }
 
-//        binding?.btnHapus.tag = id
+//        binding?.linKeypad?.btnHapus?.tag = id
         for (i in 0 until btnKeypad.size) {
             val btn = btnKeypad[i]
             if (!noUbah) {

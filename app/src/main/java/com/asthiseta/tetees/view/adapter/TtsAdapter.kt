@@ -170,7 +170,7 @@ class TtsAdapter : RecyclerView.Adapter<TtsAdapter.ViewHolder>() {
 
         init {
 
-            itemView!!.setBackgroundColor(Color.WHITE)
+            itemView!!.setBackgroundColor(Color.DKGRAY)
             itemView.setOnClickListener(this)
         }
 

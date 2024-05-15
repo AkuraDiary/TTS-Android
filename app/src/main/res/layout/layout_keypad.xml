@@ -123,7 +123,7 @@
         android:layout_toEndOf="@id/btn_keypad"
         android:layout_marginStart="5dp"
         android:text="x"
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:textSize="@dimen/sizeTvMini"/>
 
     <LinearLayout
@@ -147,6 +147,7 @@
             android:text="@string/cek"/>
 
         <android.widget.Button
+            android:visibility="gone"
             android:id="@+id/btn_bantuan"
             android:layout_width="match_parent"
             android:layout_height="@dimen/sizeBtnKeypad"
