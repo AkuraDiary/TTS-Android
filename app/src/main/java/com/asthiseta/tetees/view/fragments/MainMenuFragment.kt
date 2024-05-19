@@ -32,7 +32,7 @@ class MainMenuFragment : Fragment(){
                 // Do something
                 MediaManager.sound!!.playClick()
 //                if (BuildConfig.DEBUG) {
-                    val fragment = ListLevelDebugFragment()
+                    val fragment = ListLevelFragment()
                     val transaction  = requireActivity().supportFragmentManager.beginTransaction()
                     transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
                     transaction.replace(R.id.fragment_container, fragment).addToBackStack(TAG).commit()

@@ -22,10 +22,10 @@ import com.asthiseta.tetees.utils.ManagerLevel
  */
 
 
-class ListLevelDebugFragment : Fragment() {
+class ListLevelFragment : Fragment() {
 
     companion object {
-        val TAG = "ListLevelDebugFragment"
+        val TAG = "ListLevelFragment"
     }
     private var binding : FragmentListLevelDebugBinding? = null
     private lateinit var adapter: ListAdapter
@@ -48,7 +48,7 @@ class ListLevelDebugFragment : Fragment() {
         override fun onClick(position: Int) {
             val fragment = MainGameFragment()
             val bundle = Bundle()
-            Log.d("ListLevelDebugFragment", "position: $position")
+            Log.d("ListLevelFragment", "position: $position")
             bundle.putInt("level", position)
             fragment.arguments = bundle
             val transaction  = requireActivity().supportFragmentManager.beginTransaction()
@@ -66,7 +66,7 @@ class ListLevelDebugFragment : Fragment() {
         }
 
         override fun getItemCount(): Int {
-//            Log.d("ListLevelDebugFragment", "levelCount: ${ManagerLevel.managerLevel.levelCount()}")
+//            Log.d("ListLevelFragment", "levelCount: ${ManagerLevel.managerLevel.levelCount()}")
             return ManagerLevel.managerLevel.levelCount()
         }
 

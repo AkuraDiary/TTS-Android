@@ -8,7 +8,7 @@ import com.asthiseta.tetees.data.DataGame
 import com.asthiseta.tetees.databinding.ActivityMainBinding
 import com.asthiseta.tetees.utils.ManagerLevel
 import com.asthiseta.tetees.utils.MediaManager
-import com.asthiseta.tetees.view.fragments.ListLevelDebugFragment
+import com.asthiseta.tetees.view.fragments.ListLevelFragment
 import com.asthiseta.tetees.view.fragments.MainGameFragment
 import com.asthiseta.tetees.view.fragments.MainMenuFragment
 
@@ -101,11 +101,11 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         when {
 //            supportFragmentManager.findFragmentByTag(MainGameFragment.TAG) != null && BuildConfig.DEBUG -> supportFragmentManager.popBackStack(
-//                ListLevelDebugFragment.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE
+//                ListLevelFragment.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE
 //            )
 
             supportFragmentManager.findFragmentByTag(MainGameFragment.TAG) != null -> supportFragmentManager.popBackStack(
-                ListLevelDebugFragment.TAG,
+                ListLevelFragment.TAG,
                 FragmentManager.POP_BACK_STACK_INCLUSIVE
             )
 
