@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.util.Base64
 import android.util.Log
+import com.asthiseta.tetees.data.dummies.soal.Soal
 import com.asthiseta.tetees.data.model.TtsLevel
 import com.asthiseta.tetees.utils.Extension.JsonToObject
 import com.asthiseta.tetees.utils.HttpHandler
@@ -20,20 +21,16 @@ import java.io.FileWriter
 import java.io.IOException
 import java.util.HashMap
 
-
-/**
- *Created by Jumadi Janjaya
- *30, October, 2018
- *Jumbox Studios,
- *Bengkulu, Indonesia.
- */
 class DataGame(activity: Activity) {
 
     companion object {
         var TAG = "DataGame"
 
         @SuppressLint("StaticFieldLeak")
+        @JvmStatic
         var d: DataGame? = null
+
+
         fun instance(a: Activity): DataGame {
             d = DataGame(a)
             return d!!
@@ -61,7 +58,7 @@ class DataGame(activity: Activity) {
                 pathDir!!.mkdir()
 
                 file = File( pathDir,fileName)
-                data.level =0
+
                 data.sound = true
                 data.bantuan = false
                 data.jumlahCek = 15
@@ -69,18 +66,35 @@ class DataGame(activity: Activity) {
                 data.level = 0
                 data.rating = 0
 
-                val tts = DataTts()
-                tts.level = data.level
-                tts.ttsText = ""
-                tts.point = 100
-                dataTts.add(tts)
+                for(i in 0 until Soal.soal10x10.size) {
+                    val tts = DataTts()
+                    tts.level = i
+                    tts.ttsText = ""
+                    tts.point = 0
+                    dataTts.add(tts)
+                }
+//                val tts = DataTts()
+//
+//                tts.level = data.level
+//                tts.ttsText = ""
+//                tts.point = 0
+//
+//                dataTts.add(tts)
+
+
+                Log.i("dataGAME", "create ${dataTts.size}")
+
                 data.dataTtsSave = dataTts
+
 
                 save()
                 Log.i("dataGAME", "SAVE")
+            }else{
+                Log.i("dataGAME", "EXISTS")
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            Log.i("dataGAME", "ERROR ${e.stackTrace}")
         }
         load()
         Log.i("dataGAME", "load")
@@ -96,67 +110,69 @@ class DataGame(activity: Activity) {
 
     fun load() {
         val json = BufferedReader(FileReader("$pathDir/$fileName"))
-        data = Gson().fromJson(json, DataGame . GD ::class.java)
-
+        data = Gson().fromJson(json, GD::class.java)
+        json.close()
+        Log.i("dataGAME", "load ${data}")
+        Log.i("dataGAME", "load ${data.dataTtsSave?.get(0)?.level}")
     }
 
-    fun saveLevelUnduhan(levels: ArrayList<TtsLevel>) {
-        val fileSoal = File(pathDir, fileDataLevelsName)
-        if (!fileSoal.isFile) {
-            fileSoal.createNewFile()
-        }
-        val load = loadLevelUnduhan()
-        load.addAll(levels)
-        val gson = Gson().toJson(load)
-        val fileOutputStream = FileOutputStream("$pathDir/$fileDataLevelsName")
+//    fun saveLevelUnduhan(levels: ArrayList<TtsLevel>) {
+//        val fileSoal = File(pathDir, fileDataLevelsName)
+//        if (!fileSoal.isFile) {
+//            fileSoal.createNewFile()
+//        }
+////        val load = loadLevelUnduhan()
+//        load.addAll(levels)
+//        val gson = Gson().toJson(load)
+//        val fileOutputStream = FileOutputStream("$pathDir/$fileDataLevelsName")
+//
+//        if (isEnCodeDataLevels) {
+//            fileOutputStream.write(Base64.encode((gson + System.getProperty("line.separator")).toByteArray(), Base64.DEFAULT))
+//        } else {
+//            fileOutputStream.write((gson + System.getProperty("line.separator")).toByteArray())
+//        }
+//        fileOutputStream.close()
+//
+//        Log.d(TAG, gson)
+//
+//        val data: ArrayList<TtsLevel> = JsonToObject(gson, object : TypeToken<ArrayList<TtsLevel>>(){}.type)
+//
+//    }
 
-        if (isEnCodeDataLevels) {
-            fileOutputStream.write(Base64.encode((gson + System.getProperty("line.separator")).toByteArray(), Base64.DEFAULT))
-        } else {
-            fileOutputStream.write((gson + System.getProperty("line.separator")).toByteArray())
-        }
-        fileOutputStream.close()
-
-        Log.d(TAG, gson)
-
-        val data: ArrayList<TtsLevel> = JsonToObject(gson, object : TypeToken<ArrayList<TtsLevel>>(){}.type)
-
-    }
-
-    fun loadLevelUnduhan(): ArrayList<TtsLevel> {
-        val fileSoal = File(pathDir, fileDataLevelsName)
-        val arr = ArrayList<TtsLevel>()
-
-        if (!fileSoal.isFile) return arr
-
-        var fileContent = ""
-
-        try {
-            val fileInputStream = FileInputStream("$pathDir/$fileDataLevelsName")
-            fileContent = HttpHandler.convertStreamToString(fileInputStream)
-
-            if (isEnCodeDataLevels) {
-                fileContent = String(Base64.decode(fileInputStream.readBytes(), Base64.DEFAULT),Charsets.UTF_8)
-            }
-            fileInputStream.close()
-
-            Log.d(TAG, fileContent)
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-
-        if (fileContent.isEmpty() || fileContent.isBlank()) return arr
-
-        val parser = JsonParser()
-        val array = parser.parse(fileContent).asJsonArray
-        for (json in array) {
-            val entity = Gson().fromJson(json, TtsLevel::class.java)
-            arr.add(entity)
-        }
-
-        Log.d(TAG, ""+array.size())
-        return arr
-    }
+//    fun loadLevelUnduhan(): ArrayList<TtsLevel> {
+//        val fileSoal = File(pathDir, fileDataLevelsName)
+//        val arr = ArrayList<TtsLevel>()
+//
+//        if (!fileSoal.isFile) return arr
+//
+//        var fileContent = ""
+//
+//        try {
+//            val fileInputStream = FileInputStream("$pathDir/$fileDataLevelsName")
+//            fileContent = HttpHandler.convertStreamToString(fileInputStream)
+//
+//            if (isEnCodeDataLevels) {
+//                fileContent = String(Base64.decode(fileInputStream.readBytes(), Base64.DEFAULT),Charsets.UTF_8)
+//            }
+//            fileInputStream.close()
+//
+//            Log.d(TAG, fileContent)
+//        } catch (e: IOException) {
+//            e.printStackTrace()
+//        }
+//
+//        if (fileContent.isEmpty() || fileContent.isBlank()) return arr
+//
+//        val parser = JsonParser()
+//        val array = parser.parse(fileContent).asJsonArray
+//        for (json in array) {
+//            val entity = Gson().fromJson(json, TtsLevel::class.java)
+//            arr.add(entity)
+//        }
+//
+//        Log.d(TAG, ""+array.size())
+//        return arr
+//    }
 
     fun setScreenWidth(width: Int): DataGame {
         data.screenWidth = width
@@ -218,6 +234,7 @@ class DataGame(activity: Activity) {
     }
 
     fun getPoint(): Int {
+        Log.d("getPoint", "Level : $level")
         return data.dataTtsSave!![level].point!!
     }
 
@@ -255,8 +272,12 @@ class DataGame(activity: Activity) {
     }
 
     fun loadDataLevel(level: Int) {
+
+        Log.d("loadDataLvl", "Level : $level")
         paramsK.clear()
         this.level = lSToIndex(level)
+        Log.d("loadDataLvl", "lsToIndex : $level")
+        Log.d("loadDataLvl", "lsToIndex this.level: ${this.level}")
         try {
             if (data.dataTtsSave!![this.level].ttsText!!.contains("|")) {
                 val arr = data.dataTtsSave!![this.level].ttsText!!.split("|")
@@ -273,7 +294,14 @@ class DataGame(activity: Activity) {
 
     fun lSToIndex(level: Int): Int {
         var index: Int = -1
+
+        Log.d("lSToIndex", "Level : $level")
+        Log.d("lSToIndex", "dataTtsSave : ${data.dataTtsSave!!.size}")
+
         for (t in 0 until data.dataTtsSave!!.size) {
+            Log.d("lSToIndex", "t: $t")
+            Log.d("lSToIndex", "data.dataTtsSave Size ${data.dataTtsSave?.size}")
+            Log.d("lSToIndex", "data.dataTtsSave ${data.dataTtsSave!![t]}")
             if (level == data.dataTtsSave!![t].level!!) {
                 index = t
             }

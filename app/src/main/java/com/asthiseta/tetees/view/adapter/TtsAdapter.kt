@@ -71,7 +71,7 @@ class TtsAdapter : RecyclerView.Adapter<TtsAdapter.ViewHolder>() {
             val height = 100.0//(DataGame.get().data.heightRecy!! - (viewGroup.paddingTop + viewGroup.paddingBottom)) / kotak.toFloat()
             val width =100//(DataGame.get().data.screenWidth!! / kotak)
 
-            Log.i("tinggi", " ${DataGame.get().data.heightRecy}, $height")
+//            Log.i("tinggi", " ${DataGame.get().data.heightRecy}, $height")
 
             val params = itemView.layoutParams
             val marginParams = itemView.layoutParams as ViewGroup.MarginLayoutParams

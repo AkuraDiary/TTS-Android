@@ -3,12 +3,14 @@ package com.asthiseta.tetees.view.fragments
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.asthiseta.tetees.R
@@ -116,7 +118,7 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
     }
 
     private val btnKeypad: ArrayList<Button?> = ArrayList()
-//    private lateinit var btnHapus: Button
+    private lateinit var btnHapus: Button
 //    private lateinit var btnCek: Button
 //    private lateinit var btnBantuan: Button
 //
@@ -178,11 +180,14 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
             }
         }
 
-        binding?.linKeypad?.btnHapus?.setOnClickListener { view ->
+        btnHapus = binding?.linKeypad?.btnHapus!!
+
+        btnHapus.setOnClickListener { view ->
             MediaManager.sound!!.playClick()
             var id = -1
             if(view.tag != null) id = view.tag as Int
             updateKotak(id, "")
+            Toast.makeText(context, "btnHapus idKotak : $id", Toast.LENGTH_SHORT).show()
         }
 //
 //        binding?.linKeypad?.btnBantuan?.setOnClickListener {
@@ -232,9 +237,12 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
     private fun createTts() {
 //        val level: Int = if (BuildConfig.DEBUG) {
             val level = requireArguments().getInt("level")
+        Log.d("createTts", "level form Bundle: $level")
+        Log.d("createTts", "level dataGame: ${DataGame.get().data.level}")
 //        } else {
 //            DataGame.get().data.level!!
 //        }
+        Log.d("createTts", "manager.levelCount(): ${manager.levelCount()}")
 //
 //        if (level > manager.levelCount()) {
 //            val dialogGameOver =  JDialog()
@@ -321,11 +329,16 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
             return
         }
 
+        Log.d("updateKotak start", "position = $posisi :  nextPos $nextPos")
         for (cr in adapter.ttsList) {
             if (cr.id == id) {
                 val index = adapter.ttsList.indexOf(cr)
                 posisi = index
+
+                Log.d("updateKotak valid", "position = $posisi :  nextPos $nextPos")
+
                 if (txt != "") {
+                    Log.d("updateKotak text", "index : $index , id ${cr.id}, text $txt, kode ${cr.kode}, orie ${cr.orientation}")
                     if (cr.kode!!.contains(":")) {
                         val ko = cr.kode!!.split(":")
                         if (txtJawaban == ko[0]) {
@@ -333,22 +346,44 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
                         } else if (txtJawaban == ko[1]) {
                             nextPos = index + manager.kotak()
                         }
-                    } else {
-                        nextPos = if (cr.orientation == TtsOrientation.HORIZONTAL) index + 1 else index + manager.kotak()
-                    }
-                } else {
 
-                    if (cr.kode!!.contains(":")) {
-                        val ko = cr.kode!!.split(":")
-                        if (txtJawaban == ko[0]) {
-                            nextPos = index - 1
-                        } else if (txtJawaban == ko[1]) {
-                            nextPos = index - manager.kotak()
-                        }
+                        Log.d("updateKotak text with : ", "next Pos : $nextPos")
                     } else {
-                        nextPos = if (cr.orientation == TtsOrientation.HORIZONTAL) index - 1 else index - manager.kotak()
+
+                        nextPos = when(cr.orientation){
+                            TtsOrientation.VERTICAL -> {
+                                index+1
+                            }
+
+                            TtsOrientation.HORIZONTAL -> {
+                                index + manager.kotak()
+                            }
+
+                            else -> {
+                                index + 10
+                            }
+                        }
+                        Log.d("updateKotak text no : ", "orie : ${cr.orientation} next Pos : $nextPos")
+
+                        //nextPos = if (cr.orientation == TtsOrientation.VERTICAL) index + 1 else index + manager.kotak()
                     }
+                    Log.d("updateKotak text", "next Pos : $nextPos")
                 }
+
+//                else {
+//                    Log.d("updateKotak text empty", "index : $index , ${cr.kode} ")
+//                    if (cr.kode!!.contains(":")) {
+//                        val ko = cr.kode!!.split(":")
+//                        if (txtJawaban == ko[0]) {
+//                            nextPos = index - 1
+//                        } else if (txtJawaban == ko[1]) {
+//                            nextPos = index - manager.kotak()
+//                        }
+//                    } else {
+//                        Log.d("updateKotak kosong", "index : $index , ${manager.kotak()}")
+//                        nextPos = if (cr.orientation == TtsOrientation.VERTICAL) index - 1 else index - manager.kotak()
+//                    }
+//                }
 
 
                 if (nextPos > adapter.itemCount - 1 || nextPos < 0) {
@@ -359,6 +394,9 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
                         nextPos = posisi
                     }
                 }
+
+                Log.d("updateKotak end", "position = $posisi :  nextPos $nextPos")
+
                 cr.tts = cr.tts
                 cr.id = cr.id
                 cr.clue = cr.clue
@@ -441,7 +479,7 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
             arr[nextInt] = str2
         }
 
-//        binding?.linKeypad?.btnHapus?.tag = id
+        btnHapus.tag = id
         for (i in 0 until btnKeypad.size) {
             val btn = btnKeypad[i]
             if (!noUbah) {

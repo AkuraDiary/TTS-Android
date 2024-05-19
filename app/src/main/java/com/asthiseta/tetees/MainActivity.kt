@@ -8,6 +8,7 @@ import com.asthiseta.tetees.data.DataGame
 import com.asthiseta.tetees.databinding.ActivityMainBinding
 import com.asthiseta.tetees.utils.ManagerLevel
 import com.asthiseta.tetees.utils.MediaManager
+import com.asthiseta.tetees.view.fragments.ListLevelDebugFragment
 import com.asthiseta.tetees.view.fragments.MainGameFragment
 import com.asthiseta.tetees.view.fragments.MainMenuFragment
 
@@ -104,7 +105,7 @@ class MainActivity : AppCompatActivity() {
 //            )
 
             supportFragmentManager.findFragmentByTag(MainGameFragment.TAG) != null -> supportFragmentManager.popBackStack(
-                MainMenuFragment.TAG,
+                ListLevelDebugFragment.TAG,
                 FragmentManager.POP_BACK_STACK_INCLUSIVE
             )
 

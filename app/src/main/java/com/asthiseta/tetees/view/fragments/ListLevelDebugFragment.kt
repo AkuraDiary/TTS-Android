@@ -1,6 +1,7 @@
 package com.asthiseta.tetees.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,6 +48,7 @@ class ListLevelDebugFragment : Fragment() {
         override fun onClick(position: Int) {
             val fragment = MainGameFragment()
             val bundle = Bundle()
+            Log.d("ListLevelDebugFragment", "position: $position")
             bundle.putInt("level", position)
             fragment.arguments = bundle
             val transaction  = requireActivity().supportFragmentManager.beginTransaction()
@@ -64,6 +66,7 @@ class ListLevelDebugFragment : Fragment() {
         }
 
         override fun getItemCount(): Int {
+//            Log.d("ListLevelDebugFragment", "levelCount: ${ManagerLevel.managerLevel.levelCount()}")
             return ManagerLevel.managerLevel.levelCount()
         }
 

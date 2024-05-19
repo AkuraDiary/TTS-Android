@@ -126,6 +126,7 @@ class ManagerLevel {
     }
 
     fun setLevel(mLevel: Int) {
+        Log.d(TAG, "setLevel: $mLevel")
         val level = levels[mLevel]
         val soals = level.soals
         gLevel = mLevel
