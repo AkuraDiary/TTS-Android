@@ -186,7 +186,7 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
             MediaManager.sound!!.playClick()
             var id = -1
             if(view.tag != null) id = view.tag as Int
-            updateKotak(id, "")
+            updateKotak(id, " ")
 //            Toast.makeText(context, "btnHapus idKotak : $id", Toast.LENGTH_SHORT).show()
         }
 //
@@ -337,7 +337,7 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
 
                 Log.d("updateKotak valid", "position = $posisi :  nextPos $nextPos")
 
-                if (txt != "") {
+                if (txt != " ") {
                     Log.d("updateKotak text", "index : $index , id ${cr.id}, text $txt, kode ${cr.kode}, orie ${cr.orientation}")
                     if (cr.kode!!.contains(":")) {
                         val ko = cr.kode!!.split(":")
@@ -393,7 +393,7 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
                     Log.d("updateKotak invalid", "nextPos < 0 : $nextPos adpt.itemcount: ${adapter.itemCount}")
                     nextPos = posisi
                     nextPos = Math.abs(nextPos)
-                    if(txt == "" && posisi != 0){
+                    if(txt == " " && posisi != 0){
                         nextPos -= 1
                     }
                     Log.d("updateKotak invalid", "nextPos $nextPos")
@@ -402,28 +402,6 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
                     val tc = adapter.get(nextPos)
                     if (tc.kode == null || adapter.block(posisi, nextPos)) {
                         nextPos = posisi
-                        //TODO handle next position is invalid
-
-                        Log.d("updateKotak invalid", "position = $posisi :  nextPos $nextPos orie ${cr.orientation}")
-//                        nextPos = when(cr.orientation){
-//                            TtsOrientation.VERTICAL -> {
-//                                if(txt != "")
-//                                    index+1
-//                                else
-//                                    index - manager.kotak()
-//                            }
-//
-//                            TtsOrientation.HORIZONTAL -> {
-//                                if(txt != "")
-//                                    index + manager.kotak()
-//                                else
-//                                    index - 1
-//                            }
-//                            else -> {
-//                                index - 10
-//                            }
-//                        }
-
                     }
                 }
 
@@ -478,7 +456,7 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
         var jumlahTts = 0
         for (i in 0 until adapter.ttsList.size) {
             val tc = adapter.get(i)
-            if (tc.tts.toString().toUpperCase() == DataGame.get().loadKotak(i).toUpperCase()) {
+            if (tc.tts.toString().equals(DataGame.get().loadKotak(i), ignoreCase = true)) {
                 if (DataGame.get().loadKotak(i) != "") {
                     jumlahBenar++
                 }
