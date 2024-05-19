@@ -187,7 +187,7 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
             var id = -1
             if(view.tag != null) id = view.tag as Int
             updateKotak(id, "")
-            Toast.makeText(context, "btnHapus idKotak : $id", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, "btnHapus idKotak : $id", Toast.LENGTH_SHORT).show()
         }
 //
 //        binding?.linKeypad?.btnBantuan?.setOnClickListener {
@@ -352,11 +352,11 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
 
                         nextPos = when(cr.orientation){
                             TtsOrientation.VERTICAL -> {
-                                index+1
+                                index+manager.kotak()
                             }
 
                             TtsOrientation.HORIZONTAL -> {
-                                index + manager.kotak()
+                                index + 1
                             }
 
                             else -> {
@@ -370,28 +370,60 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
                     Log.d("updateKotak text", "next Pos : $nextPos")
                 }
 
-//                else {
-//                    Log.d("updateKotak text empty", "index : $index , ${cr.kode} ")
-//                    if (cr.kode!!.contains(":")) {
-//                        val ko = cr.kode!!.split(":")
-//                        if (txtJawaban == ko[0]) {
-//                            nextPos = index - 1
-//                        } else if (txtJawaban == ko[1]) {
-//                            nextPos = index - manager.kotak()
-//                        }
-//                    } else {
-//                        Log.d("updateKotak kosong", "index : $index , ${manager.kotak()}")
-//                        nextPos = if (cr.orientation == TtsOrientation.VERTICAL) index - 1 else index - manager.kotak()
-//                    }
-//                }
+                else {
+                    Log.d("updateKotak text empty", "index : $index , ${cr.kode} orie ${cr.orientation}")
+
+                    nextPos = when(cr.orientation){
+                        TtsOrientation.VERTICAL -> {
+                            index- manager.kotak()
+                        }
+
+                        TtsOrientation.HORIZONTAL -> {
+                            index - 1
+                        }
+                        else -> {
+                            index - 10
+                        }
+                    }
+                    Log.d("updateKotak text empty", "position: $posisi nextPos: $nextPos ")
+                }
 
 
                 if (nextPos > adapter.itemCount - 1 || nextPos < 0) {
+                    Log.d("updateKotak invalid", "nextPos < 0 : $nextPos adpt.itemcount: ${adapter.itemCount}")
                     nextPos = posisi
+                    nextPos = Math.abs(nextPos)
+                    if(txt == "" && posisi != 0){
+                        nextPos -= 1
+                    }
+                    Log.d("updateKotak invalid", "nextPos $nextPos")
+
                 } else if (nextPos < adapter.itemCount - 1 || nextPos > 0) {
                     val tc = adapter.get(nextPos)
                     if (tc.kode == null || adapter.block(posisi, nextPos)) {
                         nextPos = posisi
+                        //TODO handle next position is invalid
+
+                        Log.d("updateKotak invalid", "position = $posisi :  nextPos $nextPos orie ${cr.orientation}")
+//                        nextPos = when(cr.orientation){
+//                            TtsOrientation.VERTICAL -> {
+//                                if(txt != "")
+//                                    index+1
+//                                else
+//                                    index - manager.kotak()
+//                            }
+//
+//                            TtsOrientation.HORIZONTAL -> {
+//                                if(txt != "")
+//                                    index + manager.kotak()
+//                                else
+//                                    index - 1
+//                            }
+//                            else -> {
+//                                index - 10
+//                            }
+//                        }
+
                     }
                 }
 

@@ -98,7 +98,7 @@ class TSilang {
                 tts[y][x] = " "
                 wKode[y][x] = DEFAULT
                 wClue[y][x] = DEFAULT
-                wOrie[y][x] = TtsOrientation.VERTICAL//null != null
+                wOrie[y][x] = TtsOrientation.VERTICAL //null != null
 
                 size++
             }
@@ -117,7 +117,7 @@ class TSilang {
                     wClue[row - 1][colm - 1 + j] = cl
                 }
                 tts[row - 1][colm - 1 + j] = s[j].toString()
-                wOrie[row - 1][colm - 1 + j] = TtsOrientation.VERTICAL//true
+                wOrie[row - 1][colm - 1 + j] = TtsOrientation.HORIZONTAL//true
                 j++
             }
         } else {
