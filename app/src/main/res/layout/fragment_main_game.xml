@@ -93,7 +93,7 @@
         android:layout_below="@id/tool_bar"
         android:layout_centerVertical="true"
         android:background="@drawable/bg_level"
-        android:foregroundTint="@color/material_dynamic_primary10"
+        android:foregroundTint="@color/black"
         android:overScrollMode="never"
         android:paddingStart="1dp"
         android:paddingTop="1dp"

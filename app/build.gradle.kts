@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.asthiseta.tetees"
-    compileSdk = 34
+    compileSdk = 31
 
     defaultConfig {
         applicationId = "com.asthiseta.tetees"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 31
         versionCode = 1
         versionName = "1.0"
 
@@ -51,5 +51,5 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation("com.google.code.gson:gson:2.10.1")
+    implementation(libs.gson)
 }
