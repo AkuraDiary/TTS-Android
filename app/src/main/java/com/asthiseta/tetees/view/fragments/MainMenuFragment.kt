@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import com.asthiseta.tetees.R
 import com.asthiseta.tetees.databinding.FragmentMainMenuBinding
 import com.asthiseta.tetees.utils.MediaManager
+import com.rajat.pdfviewer.PdfViewerActivity
+import com.rajat.pdfviewer.util.saveTo
 
 class MainMenuFragment : Fragment(){
     companion object {
@@ -28,6 +30,25 @@ class MainMenuFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
+            btnMateri.setOnClickListener {
+                // Do something
+                MediaManager.sound!!.playClick()
+
+                startActivity(
+                    PdfViewerActivity.launchPdfFromPath(
+                        context = requireContext(),
+                        path = "materi.pdf",
+                        pdfTitle = "Materi",
+                        saveTo = saveTo.ASK_EVERYTIME,
+                        fromAssets = true
+                    )
+
+                )
+//                val fragment = MateriFragment()
+//                val transaction  = requireActivity().supportFragmentManager.beginTransaction()
+//                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+//                transaction.replace(R.id.fragment_container, fragment).addToBackStack(TAG).commit()
+            }
             btnMulai.setOnClickListener {
                 // Do something
                 MediaManager.sound!!.playClick()

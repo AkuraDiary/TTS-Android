@@ -37,4 +37,6 @@
     <string name="artinya">Artinya : %s</string>
     <string name="share">Share</string>
     <string name="lanjut">Lanjut</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -21,7 +21,15 @@
                 android:text="Mulai"
                 android:textSize="@dimen/sizeTvLarge"
                 android:textColor="@color/white"/>
-
+        <android.widget.Button
+            android:id="@+id/btn_materi"
+            android:layout_width="@dimen/sizeWidthBtnLarge"
+            android:layout_height="@dimen/sizeHeightBtnLarge"
+            android:background="@drawable/btn_play_selector"
+            android:layout_margin="5dp"
+            android:text="Materi"
+            android:textSize="@dimen/sizeTvLarge"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
 

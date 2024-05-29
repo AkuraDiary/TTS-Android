@@ -1,3 +1,4 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -5,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.asthiseta.tetees"
-    compileSdk = 31
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.asthiseta.tetees"
         minSdk = 24
-        targetSdk = 31
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -46,10 +47,11 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-
     testImplementation(libs.junit)
+//    implementation("androidx.appcompat:appcompat:1.4.2")
+//    implementation("com.google.android.material:material:1.6.0")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
+    implementation(libs.pdf.viewer)
     implementation(libs.gson)
 }
