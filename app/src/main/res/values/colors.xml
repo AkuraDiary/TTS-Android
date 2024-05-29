@@ -16,4 +16,5 @@
 
     <color name="colorTextFocus">#000</color>
     <color name="colorText">#000</color>
+    <color name="colorDark">#211810</color>
 </resources>

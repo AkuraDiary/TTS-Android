@@ -47,6 +47,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:background="@color/colorDark"
         android:id="@+id/lin_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,13 +68,14 @@
 
             <TextView
                 android:id="@+id/tv_petunjuk"
+                android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="Teka Teki Silang"
+                android:text="Teka-Teki Silang"
                 android:textAlignment="center"
-                android:textSize="@dimen/sizeTvMini" />
+                android:textSize="@dimen/sizeTvNormal" />
 
         </RelativeLayout>
 
@@ -88,7 +90,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@id/lin_bottom"
         android:layout_below="@id/tool_bar"
         android:layout_centerVertical="true"
