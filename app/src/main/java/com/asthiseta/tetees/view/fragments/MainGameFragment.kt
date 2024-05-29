@@ -37,42 +37,6 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
 //        adapter.updateAllDataTts()
 //    }
 
-//    override fun diClick(id: Int) {
-//        when(id) {
-//            JDialog.DIALOG_TONTON -> {
-//                if (BuildConfig.isAdsAdmob && AdsGame.adsGame!!.isVideoRewardLoad()) {
-//                    AdsGame.adsGame!!.showVideoReward()
-//                } else if(!BuildConfig.isAdsAdmob && AdGame.adGame!!.isVideoRewardLoad()) {
-//                    AdGame.adGame!!.showVideoReward()
-//                } else {
-//                    val dialogGagalLoad =  JDialog()
-//                    val bundle = Bundle()
-//                    bundle.putInt(JDialog.DIALOG, JDialog.DIALOG_GAGAL_LOAD)
-//                    dialogGagalLoad.arguments = bundle
-//                    dialogGagalLoad.setListener(this)
-//                    val transaction = activity!!.supportFragmentManager.beginTransaction()
-//                    transaction.add(dialogGagalLoad, null).show(dialogGagalLoad).commit()
-//                    dialogGagalLoad.isCancelable = false
-//                }
-//            }
-//            JDialog.DIALOG_GAGAL_LOAD -> {}
-//
-//            JDialog.DIALOG_GUNA_BANTUAN -> {
-//                val dialogTonton =  JDialog()
-//                val bundle = Bundle()
-//                bundle.putInt(JDialog.DIALOG, JDialog.DIALOG_TONTON)
-//                dialogTonton.arguments = bundle
-//                dialogTonton.setListener(this)
-//                val transaction = activity!!.supportFragmentManager.beginTransaction()
-//                transaction.add(dialogTonton, null).show(dialogTonton).commit()
-//                dialogTonton.isCancelable = false
-//            }
-//            JDialog.DIALOG_GUNA_INTERSTITIAL -> {
-//                if(BuildConfig.isAdsAdmob) AdsGame.adsGame!!.showInterstitial(1)
-//                else AdGame.adGame!!.showInterstitial(1)
-//            }
-//        }
-//    }
 
     override fun click(posisi: Int, txtpKode: String, noUbah: Boolean) {
         val tts = adapter.get(posisi)
@@ -107,11 +71,6 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
         }
     }
 
-//    override fun onRewardedVideoCompleted() {
-//        adapter.bantuan(true)
-//        DataGame.get().setBantuan(true)
-//        adapter.updateAllDataTts()
-//    }
 
     companion object {
         var TAG = "MainGameFragment"
@@ -119,17 +78,6 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
 
     private val btnKeypad: ArrayList<Button?> = ArrayList()
     private lateinit var btnHapus: Button
-//    private lateinit var btnCek: Button
-//    private lateinit var btnBantuan: Button
-//
-//    private lateinit var tvPoint: TextView
-//    private lateinit var tvLevel: TextView
-//    private lateinit var tvScore: TextView
-//    private lateinit var tvPetunjuk: TextView
-//
-//    private lateinit var bar: RelativeLayout
-//    private lateinit var keypad: RelativeLayout
-//    private lateinit var relPetunjuk: RelativeLayout
 
     private val adapter: TtsAdapter = TtsAdapter()
 //    private lateinit var recyclerView: RecyclerView
@@ -141,10 +89,14 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
     private var jumKotakBenarTts = 0
     var txtPetunjukOld: String = ""
     var jumCek: Int = 15
-    var point: Int = 100
+    var point: Int = 0
 
-    private var binding : FragmentMainGameBinding? = null
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    private var binding: FragmentMainGameBinding? = null
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = FragmentMainGameBinding.inflate(inflater, container, false)
 //        (activity as MainActivity).cekFragmentTag(true)
 
@@ -175,7 +127,7 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
             btn?.setOnClickListener { view ->
                 MediaManager.sound!!.playClick()
                 var id = -1
-                if(view.tag != null) id = view.tag as Int
+                if (view.tag != null) id = view.tag as Int
                 updateKotak(id, btn.text as String)
             }
         }
@@ -185,7 +137,7 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
         btnHapus.setOnClickListener { view ->
             MediaManager.sound!!.playClick()
             var id = -1
-            if(view.tag != null) id = view.tag as Int
+            if (view.tag != null) id = view.tag as Int
             updateKotak(id, " ")
 //            Toast.makeText(context, "btnHapus idKotak : $id", Toast.LENGTH_SHORT).show()
         }
@@ -204,39 +156,43 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
 
         binding?.linKeypad?.btnCek?.setOnClickListener {
             MediaManager.sound!!.playClick()
-            if(jumCek > 0 && !(DataGame.get().data.bantuan!!)) {
-                timerDown.start()
-                adapter.bantuan(true)
-                adapter.updateAllDataTts()
-                jumCek -= 1
-                point -=2
-                binding?.tvPoint?.text = getString(R.string.point, point.toString())
-                DataGame.get().setJumCek(jumCek)
-            }else if(DataGame.get().data.bantuan!!)  {
-                val txt = "<font color='red'><b>${getString(R.string.bantuan_sudah_digunakan)}</b></font>"
-                txtPetunjukOld = binding?.tvPetunjuk?.text.toString()
-                binding?.tvPetunjuk?.setText(Html.fromHtml(txt), TextView.BufferType.SPANNABLE)
-                timerDown.start()
-            } else if (jumCek == 0){
+//            if(jumCek > 0 && !(DataGame.get().data.bantuan!!)) {
+            timerDown.start()
+            adapter.bantuan(true)
+            adapter.updateAllDataTts()
+//                jumCek -= 1
+            jumlahBenar()
+            point += jumKotakBenarTts * 2;
+            binding?.tvPoint?.text = getString(R.string.point, point.toString())
+            cekGame();
+//                DataGame.get().setJumCek(jumCek)
+//            }
 
-//                val dialogCekHabis =  JDialog()
-//                val bundle = Bundle()
-//                bundle.putInt(JDialog.DIALOG, JDialog.DIALOG_CEK_HABIS)
-//                dialogCekHabis.arguments = bundle
-//                val transaction = activity!!.supportFragmentManager.beginTransaction()
-//                transaction.add(dialogCekHabis, null).show(dialogCekHabis).commit()
-//                dialogCekHabis.isCancelable = false
-            }else{
-
-            }
+//            else if(DataGame.get().data.bantuan!!)  {
+//                val txt = "<font color='red'><b>${getString(R.string.bantuan_sudah_digunakan)}</b></font>"
+//                txtPetunjukOld = binding?.tvPetunjuk?.text.toString()
+//                binding?.tvPetunjuk?.setText(Html.fromHtml(txt), TextView.BufferType.SPANNABLE)
+//                timerDown.start()
+//            } else if (jumCek == 0){
+//
+////                val dialogCekHabis =  JDialog()
+////                val bundle = Bundle()
+////                bundle.putInt(JDialog.DIALOG, JDialog.DIALOG_CEK_HABIS)
+////                dialogCekHabis.arguments = bundle
+////                val transaction = activity!!.supportFragmentManager.beginTransaction()
+////                transaction.add(dialogCekHabis, null).show(dialogCekHabis).commit()
+////                dialogCekHabis.isCancelable = false
+//            }else{
+//
+//            }
         }
 
-        return  binding?.root
+        return binding?.root
     }
 
     private fun createTts() {
 //        val level: Int = if (BuildConfig.DEBUG) {
-            val level = requireArguments().getInt("level")
+        val level = requireArguments().getInt("level")
         Log.d("createTts", "level form Bundle: $level")
         Log.d("createTts", "level dataGame: ${DataGame.get().data.level}")
 //        } else {
@@ -258,7 +214,7 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
 
         manager.setLevel(level)
 
-        val sLevel =(manager.level()+1).toString()
+        val sLevel = (manager.level() + 1).toString()
         point = DataGame.get().getPoint()
         binding?.tvLevel?.text = getString(R.string.level, sLevel)
         binding?.tvPoint?.text = getString(R.string.point, "$point ")
@@ -274,12 +230,14 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
 
         if (DataGame.get().data.heightRecy == null) {
             val gridParams = binding?.recyclerview?.layoutParams
-            gridParams?.height = 500//((DataGame.get().data.screenHeight - binding?.toolBar?.layoutParams?.height) - binding?.relPetunjuk?.layoutParams?.height) - binding?.linKeypad?.root?.layoutParams?.height ?: 0
+            gridParams?.height =
+                500//((DataGame.get().data.screenHeight - binding?.toolBar?.layoutParams?.height) - binding?.relPetunjuk?.layoutParams?.height) - binding?.linKeypad?.root?.layoutParams?.height ?: 0
             binding?.recyclerview?.layoutParams = gridParams
             DataGame.get().setHeightRecy(gridParams?.height!!).save()
         }
 
-        val heigRecy = (DataGame.get().data.heightRecy!! - (binding?.recyclerview?.paddingTop!! + binding?.recyclerview?.paddingBottom!!))
+        val heigRecy =
+            (DataGame.get().data.heightRecy!! - (binding?.recyclerview?.paddingTop!! + binding?.recyclerview?.paddingBottom!!))
         val height = heigRecy / manager.kotak().toFloat()
         val sisa = heigRecy - (Math.round(height) * manager.kotak())
 
@@ -338,7 +296,10 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
                 Log.d("updateKotak valid", "position = $posisi :  nextPos $nextPos")
 
                 if (txt != " ") {
-                    Log.d("updateKotak text", "index : $index , id ${cr.id}, text $txt, kode ${cr.kode}, orie ${cr.orientation}")
+                    Log.d(
+                        "updateKotak text",
+                        "index : $index , id ${cr.id}, text $txt, kode ${cr.kode}, orie ${cr.orientation}"
+                    )
                     if (cr.kode!!.contains(":")) {
                         val ko = cr.kode!!.split(":")
                         if (txtJawaban == ko[0]) {
@@ -350,9 +311,9 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
                         Log.d("updateKotak text with : ", "next Pos : $nextPos")
                     } else {
 
-                        nextPos = when(cr.orientation){
+                        nextPos = when (cr.orientation) {
                             TtsOrientation.VERTICAL -> {
-                                index+manager.kotak()
+                                index + manager.kotak()
                             }
 
                             TtsOrientation.HORIZONTAL -> {
@@ -363,24 +324,29 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
                                 index + 10
                             }
                         }
-                        Log.d("updateKotak text no : ", "orie : ${cr.orientation} next Pos : $nextPos")
+                        Log.d(
+                            "updateKotak text no : ",
+                            "orie : ${cr.orientation} next Pos : $nextPos"
+                        )
 
                         //nextPos = if (cr.orientation == TtsOrientation.VERTICAL) index + 1 else index + manager.kotak()
                     }
                     Log.d("updateKotak text", "next Pos : $nextPos")
-                }
+                } else {
+                    Log.d(
+                        "updateKotak text empty",
+                        "index : $index , ${cr.kode} orie ${cr.orientation}"
+                    )
 
-                else {
-                    Log.d("updateKotak text empty", "index : $index , ${cr.kode} orie ${cr.orientation}")
-
-                    nextPos = when(cr.orientation){
+                    nextPos = when (cr.orientation) {
                         TtsOrientation.VERTICAL -> {
-                            index- manager.kotak()
+                            index - manager.kotak()
                         }
 
                         TtsOrientation.HORIZONTAL -> {
                             index - 1
                         }
+
                         else -> {
                             index - 10
                         }
@@ -390,10 +356,13 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
 
 
                 if (nextPos > adapter.itemCount - 1 || nextPos < 0) {
-                    Log.d("updateKotak invalid", "nextPos < 0 : $nextPos adpt.itemcount: ${adapter.itemCount}")
+                    Log.d(
+                        "updateKotak invalid",
+                        "nextPos < 0 : $nextPos adpt.itemcount: ${adapter.itemCount}"
+                    )
                     nextPos = posisi
                     nextPos = Math.abs(nextPos)
-                    if(txt == " " && posisi != 0){
+                    if (txt == " " && posisi != 0) {
                         nextPos -= 1
                     }
                     Log.d("updateKotak invalid", "nextPos $nextPos")
@@ -421,7 +390,7 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
         adapter.nextPos(posisi, nextPos)
 
         if (cekGame()) {
-            val dialogWinner =  DialogWinner()
+            val dialogWinner = DialogWinner()
 //            dialogWinner.setListener(this)
             val bundle = Bundle()
             bundle.putString(DialogWinner.POINT, point.toString())
@@ -435,16 +404,16 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
     private fun cekGame(): Boolean {
         jumlahBenar()
         var mCek = false
-        val jPoint =DataGame.get().data.jumlahPoint!!.plus(point)
+        val jPoint = DataGame.get().data.jumlahPoint!!.plus(point)
         if (jumKotakBenarTts == jumKotakTts) {
-            DataGame.get().setLevel(manager.level()+1)
-                    .addDataKotak()
-                    .clearKotak()
-                    .setPoint(point)
-                    .setJumCek(15)
-                    .setJumPoints(jPoint)
-                    .setBantuan(false)
-                    .save()
+            DataGame.get().setLevel(manager.level() + 1)
+                .addDataKotak()
+                .clearKotak()
+                .setPoint(point)
+                .setJumCek(15)
+                .setJumPoints(jPoint)
+                .setBantuan(false)
+                .save()
             mCek = true
 
         }
