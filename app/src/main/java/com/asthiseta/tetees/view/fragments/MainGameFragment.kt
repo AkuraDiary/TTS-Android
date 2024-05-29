@@ -2,15 +2,12 @@ package com.asthiseta.tetees.view.fragments
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.text.Html
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.asthiseta.tetees.R
@@ -23,6 +20,7 @@ import com.asthiseta.tetees.utils.MediaManager
 import com.asthiseta.tetees.view.adapter.TtsAdapter
 import com.asthiseta.tetees.view.dialogs.DialogWinner
 import java.util.Locale
+
 
 /**
  *Created by Jumadi Janjaya
@@ -117,6 +115,14 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
 //        if (BuildConfig.isAdsAdmob) AdsGame.adsGame!!.setListener(this)
 //        else AdGame.adGame!!.setListener(this)
 
+        val displayMetrics = DisplayMetrics()
+        requireActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics)
+        val screenHeight = displayMetrics.heightPixels
+        val screenWidth = displayMetrics.widthPixels
+
+        TtsAdapter.screenHeight = screenHeight
+        TtsAdapter.screenWidth = screenWidth
+
         binding?.recyclerview?.adapter = adapter
         createTts()
 
@@ -190,6 +196,7 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
         return binding?.root
     }
 
+
     private fun createTts() {
 //        val level: Int = if (BuildConfig.DEBUG) {
         val level = requireArguments().getInt("level")
@@ -224,6 +231,8 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
         val gridLayoutManager = GridLayoutManager(context, manager.kotak())
         binding?.recyclerview?.layoutManager = gridLayoutManager
         binding?.recyclerview?.isVerticalScrollBarEnabled = false
+
+
 
         adapter.setK(manager.kotak())
         DataGame.get().loadDataLevel(manager.level())

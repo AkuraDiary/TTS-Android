@@ -18,6 +18,10 @@ import java.util.Locale
 
 
 class TtsAdapter : RecyclerView.Adapter<TtsAdapter.ViewHolder>() {
+    companion object {
+        var screenHeight = 0
+        var screenWidth = 0
+    }
 
     var ttsList: ArrayList<TTS> = ArrayList()
     private var ttsListener: TtsListener? = null
@@ -26,7 +30,7 @@ class TtsAdapter : RecyclerView.Adapter<TtsAdapter.ViewHolder>() {
 
     var selectedItem = -1
     var noUbah: Boolean = false
-    var bantuan:Boolean = false
+    var bantuan: Boolean = false
     private var txtKode = ""
     var orientation = false
     private var kotak: Int = 0
@@ -65,24 +69,30 @@ class TtsAdapter : RecyclerView.Adapter<TtsAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
-        val itemView = LayoutInflater.from(viewGroup!!.context).inflate(R.layout.layout_item_grid, viewGroup, false)
+        val itemView = LayoutInflater.from(viewGroup!!.context)
+            .inflate(R.layout.layout_item_grid, viewGroup, false)
 
         itemView.post {
-            val height = 100.0//(DataGame.get().data.heightRecy!! - (viewGroup.paddingTop + viewGroup.paddingBottom)) / kotak.toFloat()
-            val width =100//(DataGame.get().data.screenWidth!! / kotak)
 
-//            Log.i("tinggi", " ${DataGame.get().data.heightRecy}, $height")
+            // atur ukuran kotak
+            val height = (screenWidth/kotak).toFloat() //(screenHeight - (viewGroup.paddingTop + viewGroup.paddingBottom)) / (kotak.toFloat())
+                //100.0 //(DataGame.get().data.heightRecy!! - (viewGroup.paddingTop + viewGroup.paddingBottom)) / kotak.toFloat()
+            val width = screenWidth / (kotak) //100 //(DataGame.get().data.screenWidth!! / kotak)
+
+            Log.i("TtsAdapter", "Tinggi Kotak $height")
+            Log.i("TtsAdapter", "Lebar Kotak $width")
 
             val params = itemView.layoutParams
             val marginParams = itemView.layoutParams as ViewGroup.MarginLayoutParams
 
             params.width = width - (marginParams.leftMargin + marginParams.rightMargin)
-            params.height = (Math.round(height) - (marginParams.topMargin + marginParams.bottomMargin)).toInt()
+            params.height =
+                (Math.round(height) - (marginParams.topMargin + marginParams.bottomMargin)).toInt()
             itemView.layoutParams = params
         }
 
         val holder = ViewHolder(itemView)
-        if (ttsList[i].kode !=null) {
+        if (ttsList[i].kode != null) {
             holder.itemView.setBackgroundColor(Color.WHITE)
             views[i] = holder
         } else {
@@ -132,7 +142,7 @@ class TtsAdapter : RecyclerView.Adapter<TtsAdapter.ViewHolder>() {
                     view.txtItem.setTextColor(Color.BLACK)
                     view.imgSalah.visibility = ImageView.GONE
                 } else {
-                    if (tts.up !="") {
+                    if (tts.up != "") {
                         view.txtItem.setTextColor(Color.RED)
                         view.imgSalah.visibility = ImageView.GONE
                     } else {
@@ -155,9 +165,10 @@ class TtsAdapter : RecyclerView.Adapter<TtsAdapter.ViewHolder>() {
 
     }
 
-    inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!), View.OnClickListener {
+    inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!),
+        View.OnClickListener {
         override fun onClick(p0: View?) {
-            if(adapterPosition != RecyclerView.NO_POSITION) {
+            if (adapterPosition != RecyclerView.NO_POSITION) {
                 selectedItem = adapterPosition
                 noUbah = false
                 focusKotak(selectedItem)
@@ -202,7 +213,7 @@ class TtsAdapter : RecyclerView.Adapter<TtsAdapter.ViewHolder>() {
             val iO = get(i)
 
             if (iO.clue != null) {
-                if(iO.kode!!.contains(":")) {
+                if (iO.kode!!.contains(":")) {
                     val k = iO.kode!!.split(":")
                     when (txtKode) {
                         k[0] -> selectArea(i)
@@ -276,7 +287,8 @@ class TtsAdapter : RecyclerView.Adapter<TtsAdapter.ViewHolder>() {
             }
         } else if (ts1.kode?.contains(":") == true) {
             val ko = ts1.kode!!.split(":")
-            return if (ts.kode == ko[0]) { false
+            return if (ts.kode == ko[0]) {
+                false
             } else ts.kode != ko[1]
         } else if (ts.kode!!.contains(":")) {
             val ko = ts.kode!!.split(":")
