@@ -98,6 +98,7 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
         binding = FragmentMainGameBinding.inflate(inflater, container, false)
 //        (activity as MainActivity).cekFragmentTag(true)
 
+
         btnKeypad.add(binding?.linKeypad?.btn1)
         btnKeypad.add(binding?.linKeypad?.btn2)
         btnKeypad.add(binding?.linKeypad?.btn3)
@@ -160,6 +161,9 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
 ////            dialogBantuan.isCancelable = false
 //        }
 
+        // to get the total kotak
+        jumlahBenar()
+
         binding?.linKeypad?.btnCek?.setOnClickListener {
             MediaManager.sound!!.playClick()
 //            if(jumCek > 0 && !(DataGame.get().data.bantuan!!)) {
@@ -168,7 +172,13 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
             adapter.updateAllDataTts()
 //                jumCek -= 1
             jumlahBenar()
-            point += jumKotakBenarTts * 2;
+
+            point = (((jumKotakBenarTts.toFloat() / jumKotakTts.toFloat())) * 10).toInt()
+
+            Log.d("point", "jumKotakTTS : $jumKotakTts")
+            Log.d("point", "jumKotakBenarTts : $jumKotakBenarTts")
+            Log.d("point", "point : $point")
+
             binding?.tvPoint?.text = getString(R.string.point, point.toString())
             cekGame();
 //                DataGame.get().setJumCek(jumCek)
