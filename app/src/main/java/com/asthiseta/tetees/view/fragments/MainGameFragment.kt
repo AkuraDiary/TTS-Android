@@ -184,6 +184,10 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
 
         }
 
+        binding?.cekDialog?.setOnClickListener {
+            showDialogWinner()
+        }
+
         return binding?.root
     }
 
@@ -390,15 +394,19 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
         adapter.nextPos(posisi, nextPos)
 
         if (cekGame()) {
-            val dialogWinner = DialogWinner()
-//            dialogWinner.setListener(this)
-            val bundle = Bundle()
-            bundle.putString(DialogWinner.POINT, point.toString())
-            dialogWinner.arguments = bundle
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.add(dialogWinner, null).show(dialogWinner).commit()
-            dialogWinner.isCancelable = false
+            showDialogWinner()
         }
+    }
+
+    private fun showDialogWinner() {
+        val dialogWinner = DialogWinner()
+//            dialogWinner.setListener(this)
+        val bundle = Bundle()
+        bundle.putString(DialogWinner.POINT, point.toString())
+        dialogWinner.arguments = bundle
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.add(dialogWinner, null).show(dialogWinner).commit()
+        dialogWinner.isCancelable = false
     }
 
     private fun cekGame(): Boolean {

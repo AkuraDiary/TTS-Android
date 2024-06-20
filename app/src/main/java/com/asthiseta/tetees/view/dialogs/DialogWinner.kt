@@ -51,12 +51,12 @@ class DialogWinner : DialogFragment() {
     private fun setupBinding() {
         binding?.apply {
             btnShare.setOnClickListener {
-                MediaManager.sound!!.playClick()
-                val kirim = getString(R.string.txt_share_app, requireActivity().packageName)
-                val intent = Intent(Intent.ACTION_SEND)
-                intent.type = "text/plain"
-                intent.putExtra(Intent.EXTRA_TEXT, kirim)
-                startActivity(Intent.createChooser(intent, getString(R.string.title_share)))
+//                MediaManager.sound!!.playClick()
+//                val kirim = getString(R.string.txt_share_app, requireActivity().packageName)
+//                val intent = Intent(Intent.ACTION_SEND)
+//                intent.type = "text/plain"
+//                intent.putExtra(Intent.EXTRA_TEXT, kirim)
+//                startActivity(Intent.createChooser(intent, getString(R.string.title_share)))
 
                 dismiss()
             }
