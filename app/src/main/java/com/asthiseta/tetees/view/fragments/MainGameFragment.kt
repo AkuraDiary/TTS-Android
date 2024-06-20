@@ -181,26 +181,7 @@ class MainGameFragment : Fragment(), TtsAdapter.TtsListener {
 
             binding?.tvPoint?.text = getString(R.string.point, point.toString())
             cekGame();
-//                DataGame.get().setJumCek(jumCek)
-//            }
 
-//            else if(DataGame.get().data.bantuan!!)  {
-//                val txt = "<font color='red'><b>${getString(R.string.bantuan_sudah_digunakan)}</b></font>"
-//                txtPetunjukOld = binding?.tvPetunjuk?.text.toString()
-//                binding?.tvPetunjuk?.setText(Html.fromHtml(txt), TextView.BufferType.SPANNABLE)
-//                timerDown.start()
-//            } else if (jumCek == 0){
-//
-////                val dialogCekHabis =  JDialog()
-////                val bundle = Bundle()
-////                bundle.putInt(JDialog.DIALOG, JDialog.DIALOG_CEK_HABIS)
-////                dialogCekHabis.arguments = bundle
-////                val transaction = activity!!.supportFragmentManager.beginTransaction()
-////                transaction.add(dialogCekHabis, null).show(dialogCekHabis).commit()
-////                dialogCekHabis.isCancelable = false
-//            }else{
-//
-//            }
         }
 
         return binding?.root

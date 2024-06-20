@@ -70,7 +70,7 @@ class Soal {
                 arrayOf("DIY", "Makanan Gudeg Berasal Dari", 1, 5, TSilang.MENDATAR),
                 arrayOf("DkiJakarta", "Ibu Kota Negara Indonesia", 1, 5, TSilang.MENURUN),
                 arrayOf("Honai", "Rumah Adata Papua Yang Berbentuk Jamur", 3, 1, TSilang.MENDATAR),
-                arrayOf("Dayak", "Suku Terbesar di Kalimantan", 4, 5, TSilang.MENDATAR),
+                arrayOf("Dayak", "Suku Terbesar di Kalimantan", 5, 4, TSilang.MENDATAR),
                 arrayOf("Kecak", "Tari Yang Berasal Dari Bali", 7, 2, TSilang.MENDATAR),
             ),
 
