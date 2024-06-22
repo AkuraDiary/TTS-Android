@@ -29,6 +29,7 @@ class MediaManager(context: Context) : SoundPool.OnLoadCompleteListener {
     private var audioManager: AudioManager? = null
     private var clickId: Int = 0
     private var winnerId: Int = 0
+    private var jawabanBenarId: Int = 0
     private var volume: Float = 0.toFloat()
     private var loaded: Boolean = false
 
@@ -44,11 +45,18 @@ class MediaManager(context: Context) : SoundPool.OnLoadCompleteListener {
 
         clickId = soundPool!!.load(context, R.raw.click, 1)
         winnerId = soundPool!!.load(context, R.raw.winner, 1)
+        jawabanBenarId = soundPool!!.load(context, R.raw.benar, 1)
     }
 
     fun playClick() {
         if (DataGame.get().data.sound!! && loaded) {
             soundPool!!.play(clickId, volume, volume, 1, 0, 1f)
+        }
+    }
+
+    fun playJawabanBenar() {
+        if (DataGame.get().data.sound!! && loaded) {
+            soundPool!!.play(jawabanBenarId, volume, volume, 1, 0, 1f)
         }
     }
 

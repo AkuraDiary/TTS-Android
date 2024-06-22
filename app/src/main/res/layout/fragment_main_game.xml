@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <Button
+        android:visibility="gone"
         android:id="@+id/cekDialog"
         android:text="cek dialog"
         android:layout_width="wrap_content"

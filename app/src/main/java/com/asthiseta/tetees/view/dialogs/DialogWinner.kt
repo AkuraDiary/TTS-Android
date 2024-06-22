@@ -100,6 +100,7 @@ class DialogWinner : DialogFragment() {
 
             countDownTimer.start()
             MediaManager.sound!!.playBerhasil()
+            MediaManager.sound!!.playJawabanBenar()
 
         }
     }
